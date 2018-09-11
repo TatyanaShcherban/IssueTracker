@@ -10,7 +10,7 @@ namespace IssueTracker.Controllers
     public class HomeController : Controller
     {
 
-        // создаем контекст данных
+        // create a data context
         Context dataBaseObject = new Context();
         public ActionResult Index()
         {

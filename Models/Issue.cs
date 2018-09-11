@@ -7,8 +7,6 @@ namespace IssueTracker.Models
 {
     public class Issue
     {
-        public enum Priorities { High, Medium, Low };
-
         // Issue ID 
         public int Id { get; set; }
         // Issue number
@@ -22,8 +20,13 @@ namespace IssueTracker.Models
         //  Issue cycle ID
         public int LifeCycleID { get; set; }
         //  Issue priority
-        public Priorities Priority { get; set; }      // enum or string
+        public string Priority { get; set; } 
         // Issue assignee
         public string Assignee { get; set; }
+
+        // Navigation property
+        public Project Project { get; set; }
+        public LifeCycle LifeCycle { get; set; }
+
     }
 }
