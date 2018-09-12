@@ -1,0 +1,88 @@
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\roslyn\csc.exe
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\roslyn\Microsoft.CodeAnalysis.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\roslyn\Microsoft.CSharp.Core.targets
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\roslyn\Microsoft.VisualBasic.Core.targets
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\roslyn\System.Collections.Immutable.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\roslyn\System.Reflection.Metadata.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\roslyn\vbc.exe
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\roslyn\VBCSCompiler.exe
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\roslyn\VBCSCompiler.exe.config
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\IssueTracker.dll.config
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\IssueTracker.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\IssueTracker.pdb
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\Antlr3.Runtime.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\EntityFramework.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\EntityFramework.SqlServer.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\Microsoft.Web.Infrastructure.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\Newtonsoft.Json.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.Helpers.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.Mvc.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.Optimization.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.Razor.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.WebPages.Deployment.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.WebPages.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.WebPages.Razor.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\WebGrease.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\EntityFramework.xml
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\EntityFramework.SqlServer.xml
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.Helpers.xml
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.Mvc.xml
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.Optimization.xml
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.Razor.xml
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.WebPages.xml
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.WebPages.Deployment.xml
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\System.Web.WebPages.Razor.xml
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\Antlr3.Runtime.pdb
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\bin\Newtonsoft.Json.xml
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\obj\Debug\IssueTracker.csprojResolveAssemblyReference.cache
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\obj\Debug\IssueTracker.dll
+c:\users\tshcherban\documents\visual studio 2015\Projects\IssueTracker\IssueTracker\obj\Debug\IssueTracker.pdb
+D:\TraineeProject\IssueTracker\bin\roslyn\csc.exe
+D:\TraineeProject\IssueTracker\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\TraineeProject\IssueTracker\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\TraineeProject\IssueTracker\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\TraineeProject\IssueTracker\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\TraineeProject\IssueTracker\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\TraineeProject\IssueTracker\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\TraineeProject\IssueTracker\bin\roslyn\System.Collections.Immutable.dll
+D:\TraineeProject\IssueTracker\bin\roslyn\System.Reflection.Metadata.dll
+D:\TraineeProject\IssueTracker\bin\roslyn\vbc.exe
+D:\TraineeProject\IssueTracker\bin\roslyn\VBCSCompiler.exe
+D:\TraineeProject\IssueTracker\bin\roslyn\VBCSCompiler.exe.config
+D:\TraineeProject\IssueTracker\bin\IssueTracker.dll.config
+D:\TraineeProject\IssueTracker\bin\IssueTracker.dll
+D:\TraineeProject\IssueTracker\bin\IssueTracker.pdb
+D:\TraineeProject\IssueTracker\bin\Antlr3.Runtime.dll
+D:\TraineeProject\IssueTracker\bin\EntityFramework.dll
+D:\TraineeProject\IssueTracker\bin\EntityFramework.SqlServer.dll
+D:\TraineeProject\IssueTracker\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\TraineeProject\IssueTracker\bin\Microsoft.Web.Infrastructure.dll
+D:\TraineeProject\IssueTracker\bin\Newtonsoft.Json.dll
+D:\TraineeProject\IssueTracker\bin\System.Web.Helpers.dll
+D:\TraineeProject\IssueTracker\bin\System.Web.Mvc.dll
+D:\TraineeProject\IssueTracker\bin\System.Web.Optimization.dll
+D:\TraineeProject\IssueTracker\bin\System.Web.Razor.dll
+D:\TraineeProject\IssueTracker\bin\System.Web.WebPages.Deployment.dll
+D:\TraineeProject\IssueTracker\bin\System.Web.WebPages.dll
+D:\TraineeProject\IssueTracker\bin\System.Web.WebPages.Razor.dll
+D:\TraineeProject\IssueTracker\bin\WebGrease.dll
+D:\TraineeProject\IssueTracker\bin\EntityFramework.xml
+D:\TraineeProject\IssueTracker\bin\EntityFramework.SqlServer.xml
+D:\TraineeProject\IssueTracker\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\TraineeProject\IssueTracker\bin\System.Web.Helpers.xml
+D:\TraineeProject\IssueTracker\bin\System.Web.Mvc.xml
+D:\TraineeProject\IssueTracker\bin\System.Web.Optimization.xml
+D:\TraineeProject\IssueTracker\bin\System.Web.Razor.xml
+D:\TraineeProject\IssueTracker\bin\System.Web.WebPages.xml
+D:\TraineeProject\IssueTracker\bin\System.Web.WebPages.Deployment.xml
+D:\TraineeProject\IssueTracker\bin\System.Web.WebPages.Razor.xml
+D:\TraineeProject\IssueTracker\bin\Antlr3.Runtime.pdb
+D:\TraineeProject\IssueTracker\bin\Newtonsoft.Json.xml
+D:\TraineeProject\IssueTracker\obj\Debug\IssueTracker.csprojResolveAssemblyReference.cache
+D:\TraineeProject\IssueTracker\obj\Debug\IssueTracker.dll
+D:\TraineeProject\IssueTracker\obj\Debug\IssueTracker.pdb
