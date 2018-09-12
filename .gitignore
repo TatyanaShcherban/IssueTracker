@@ -1,4 +1,5 @@
 /IssueTracker/bin
 /IssueTracker/obj
+/IssueTracker/obj/Debug/*.*
 /IssueTracker/packages/*
 /IssueTracker/packages/*.*
