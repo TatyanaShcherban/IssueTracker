@@ -9,25 +9,23 @@ namespace IssueTracker.Controllers
 {
     public class HomeController : Controller
     {
-
-        // create a data context
+        // create data context
         Context dataBaseObject = new Context();
         public ActionResult Index()
         {
+            SelectList allProjects = new SelectList(dataBaseObject.Projects, "id", "Name");
+            ViewBag.Projects = allProjects;
+            IEnumerable<Issue> allIssues = dataBaseObject.Issues;
+            ViewBag.Issues = allIssues;
             return View();
         }
 
-        //public ActionResult About()
-        //{       
-        //    ViewBag.Message = "Your application description page.";
-        //    return View();
-        //}
-
-        //public ActionResult Contact()
-        //{
-        //    ViewBag.Message = "Your contact page.";
-
-        //    return View();
-        //}
+        [HttpGet]
+        public ActionResult GetIssueData(int id)
+        {
+            IEnumerable<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectID == id);
+            ViewBag.Issues = allIssues;
+            return PartialView("~/Views/Home/_GetIssueDataPartial.cshtml", ViewBag.Issues);
+        }
     }
 }
