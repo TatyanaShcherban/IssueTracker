@@ -1,68 +1,23 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="http://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
-    @*@Styles.Render("~/Content/Style.css")*@
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>
-                        Issues list:
-                    </h3>
-                </div>
-                <div class="panel panel-body">
-                    <table class="table table-fixed table-striped">
-                        <thead>
-                            <tr>
-                                <th class="col-lg-1">№</th>
-                                <th class="col-lg-3">Summary</th>
-                                <th class="col-lg-4">Description</th>
-                                <th class="col-lg-2">Priority</th>
-                                <th class="col-lg-2">Assignee</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in ViewBag.Issues)
-                            {
-                                <tr>
-                                    <td class="col-lg-1">@item.Number</td>
-                                    <td class="col-lg-3">@item.Summary</td>
-                                    <td class="col-lg-4">@item.Description</td>
-                                    <td class="col-lg-2">@item.Priority</td>
-                                    <td class="col-lg-2">@item.Assignee</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-
-
-
-<style>
-    .table-fixed thead {
-        width: 100%;
-    }
-
-    .table-fixed tbody {
-        height: 250px;
-        overflow-y: auto;
-        width: 100%;
-    }
-
-    .table-fixed thead, .table-fixed tbody, .table-fixed thead tr, .table-fixed td, .table-fixed th {
-        display: block;
-    }
-
-        .table-fixed thead > tr > th {
-            float: left;
-            border-bottom-width: 0;
+﻿<table class="table table-fixed table-striped">
+    <thead>
+        <tr>
+            <th class="col-lg-1">№</th>
+            <th class="col-lg-3">Summary</th>
+            <th class="col-lg-4">Description</th>
+            <th class="col-lg-2">Priority</th>
+            <th class="col-lg-2">Assignee</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.Issues)
+        {
+            <tr>
+                <td class="col-lg-1">@item.Number</td>
+                <td class="col-lg-3">@item.Summary</td>
+                <td class="col-lg-4">@item.Description</td>
+                <td class="col-lg-2">@item.Priority</td>
+                <td class="col-lg-2">@item.Assignee</td>
+            </tr>
         }
-</style>
+    </tbody>
+</table>
