@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />       <!--???-->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
     @Scripts.Render("~/scripts/validate.min.js")
@@ -13,27 +13,30 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                <span class="navbar-brand">IssueTracker</span>
+                @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>*@
             </div>
+
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("KanBan", "Index", "Home")</li>
-                </ul>
+                <div class="col-lg-2 col-lg-offset-8">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("KanBan", "Index", "Home")</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-    <!--основной контент-->
     <div class="container body-content">
         @RenderBody()
         @RenderSection("scripts", required: false)
-        <hr />
-        <footer>
-            <p>© 2018</p>
+        <footer class="navbar-fixed-bottom">
+            <hr />
+            <p class="text-center">© 2018</p>
         </footer>
     </div>
 </body>

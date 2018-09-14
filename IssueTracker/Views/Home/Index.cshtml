@@ -1,40 +1,55 @@
 ﻿@{
     ViewBag.Title = "IssueTrack";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="form-group">
-    <div class="col">
-        <label for="projectNameLabel">Choose project name:</label>
-        @Html.DropDownList("ProjectsList", ViewBag.Projects as SelectList, new { id = "projectidForAjax" })
+<!DOCTYPE html>
+<html>
+<head>
+    @*@Scripts.Render("~/scripts/RequestForPartial.js")*@
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-5">
+                    <label for="projectNameLabel">Choose project name:</label>
+                    @*<select class="form-control" id="projectidForAjax">
+                        @foreach (var item in ViewBag.Projects)
+                        {
+                            <option>@item.Name</option>
+                        }
+                    </select>*@
+                    @Html.DropDownList("ProjectsList", ViewBag.Projects as SelectList, new { id = "projectidForAjax" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" id="partialDivForAjax">
+                @Html.Partial("_GetIssueDataPartial")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-10">
+                <button type="button" class="btn btn-dark">Create issue</button>
+            </div>
+        </div>
     </div>
-    <label for="issueLabel">Issues list:</label>
-    <div class="col" id="partialDivForAjax">
-        @Html.Partial("_GetIssueDataPartial")
-    </div>
-    <button type="button" class="btn btn-outline-secondary">Create issue</button>
-</div>
+</body>
+</html>
 
-@*<script>
-        function ShowListIssues() {
-            var selectProjectIdForIssue = document.getElementById('selectId');
-            var optionSelectProjectIdForIssue = selectProjectIdForIssue.options[selectProjectIdForIssue.selectedIndex].id;
-            window.location.href = "/Home/GetIssueData/" + optionSelectProjectIdForIssue;
-        }
-    </script>*@
 
 
 @section scripts{
     <script type="text/javascript">
         $(function () {
             $('#projectidForAjax').change(function () {
-                // get id
                 var id = $(this).val();
                 $.ajax({
                     type: 'GET',
                     url: '@Url.Action("GetIssueData")/' + id,
                     success: function (data) {
-                        // replace table
-                        $('#partialDivForAjax').replaceWith(data);
+                        $('#partialDivForAjax div').replaceWith(data);
                     }
                 });
             });
