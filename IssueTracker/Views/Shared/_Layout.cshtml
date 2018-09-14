@@ -4,39 +4,45 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
     @Scripts.Render("~/scripts/validate.min.js")
 </head>
 <body>
+    <!-- HEADER -->
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <span class="navbar-brand">IssueTracker</span>
-                @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>*@
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
             <div class="navbar-collapse collapse">
-                <div class="col-lg-2 col-lg-offset-8">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("KanBan", "Index", "Home")</li>
-                    </ul>
-                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Kanban", "Index", "Home")</li>
+                </ul>
             </div>
         </div>
     </div>
+    <!-- HEADER -->
+
+    <!-- CONTENT -->
     <div class="container body-content">
         @RenderBody()
-        @RenderSection("scripts", required: false)
-        <footer class="navbar-fixed-bottom">
-            <hr />
-            <p class="text-center">© 2018</p>
-        </footer>
     </div>
+    <!-- CONTENT -->
+
+    <!-- FOOTER -->
+    <footer style="display: none;">
+        <hr />
+        <p class="text-center">© 2018</p>
+        <hr />
+    </footer>
+    <!-- FOOTER -->
+    @RenderSection("scripts", required: false)
 </body>
 </html>
