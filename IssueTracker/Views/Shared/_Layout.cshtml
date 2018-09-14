@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
-    @Scripts.Render("~/scripts/validate.min.js")
 </head>
 <body>
     <!-- HEADER -->
@@ -43,6 +41,10 @@
         <hr />
     </footer>
     <!-- FOOTER -->
+    @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/scripts/validate.min.js")*@
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
