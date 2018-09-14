@@ -11,34 +11,28 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="form-group">
-                <div class="col-5">
-                    <label for="projectNameLabel">Choose project name:</label>
-                    @*<select class="form-control" id="projectidForAjax">
-                        @foreach (var item in ViewBag.Projects)
-                        {
-                            <option>@item.Name</option>
-                        }
-                    </select>*@
-                    @Html.DropDownList("ProjectsList", ViewBag.Projects as SelectList, new { id = "projectidForAjax" })
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Choose project name:</h3>
+                </div>
+                <div class="panel-body">
+                    @Html.DropDownList("ProjectsList", ViewBag.Projects as SelectList, new { id = "projectidForAjax", @class = "form-control" })
+                </div>
+                <div class="row">
+                    <div class="col" id="partialDivForAjax">
+                        @Html.Partial("_GetIssueDataPartial")
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col" id="partialDivForAjax">
-                @Html.Partial("_GetIssueDataPartial")
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-offset-10">
-                <button type="button" class="btn btn-dark">Create issue</button>
+            <div class="row">
+                <div class="col-lg-offset-10">
+                    <button type="button" class="btn btn-dark">Create issue</button>
+                </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-
-
 
 @section scripts{
     <script type="text/javascript">
