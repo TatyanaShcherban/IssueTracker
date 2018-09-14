@@ -2,37 +2,34 @@
     ViewBag.Title = "IssueTrack";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-<html>
-<head>
-    @*@Scripts.Render("~/scripts/RequestForPartial.js")*@
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>Choose project name:</h3>
-                </div>
-                <div class="panel-body">
-                    @Html.DropDownList("ProjectsList", ViewBag.Projects as SelectList, new { id = "projectidForAjax", @class = "form-control" })
-                </div>
-                <div class="row">
-                    <div class="col" id="partialDivForAjax">
-                        @Html.Partial("_GetIssueDataPartial")
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-offset-10">
-                    <button type="button" class="btn btn-dark">Create issue</button>
-                </div>
+<!-- DROPDOWN -->
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Choose project name:</h3>
+        <div class="panel-body">
+            @Html.DropDownList("ProjectsList", ViewBag.Projects as SelectList, new { id = "projectidForAjax", @class = "form-control" })
+        </div>
+    </div>
+</div>
+<!-- TABLE -->
+<div class="row">
+    <div class="col-lg-12">
+        <div id="partialDivForAjax">
+            <h3>Issues list:</h3>
+            <div class="panel-body">
+                @Html.Partial("_GetIssueDataPartial")
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+<!-- BUTTON -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel-body">
+            <button type="button" class="btn btn-primary" style="float: right;">Create issue</button>
+        </div>
+    </div>
+</div>
 
 @section scripts{
     <script type="text/javascript">
@@ -43,7 +40,7 @@
                     type: 'GET',
                     url: '@Url.Action("GetIssueData")/' + id,
                     success: function (data) {
-                        $('#partialDivForAjax div').replaceWith(data);
+                        $('#partialDivForAjax table').replaceWith(data);
                     }
                 });
             });
