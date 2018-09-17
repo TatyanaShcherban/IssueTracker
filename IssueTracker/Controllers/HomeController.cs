@@ -27,5 +27,30 @@ namespace IssueTracker.Controllers
             ViewBag.Issues = allIssues;
             return PartialView("~/Views/Home/_GetIssueDataPartial.cshtml", ViewBag.Issues);
         }
+
+        [HttpGet]
+        public ActionResult OpenCreateWindow()
+        {
+            return PartialView("~/Views/Home/NewIssueWindow.cshtml");
+        }
+
+        [HttpPost]
+        public string AddToDataBaseNewIssue(Issue issue)
+        {
+            try
+            {
+                dataBaseObject.Issues.Add(issue);
+                dataBaseObject.SaveChanges();
+            }
+            catch (Exception ex){
+                return ex.ToString();
+            }
+
+            return "Saved";//View("~/Views/Home/Index.cshtml");
+        }
+
+
+
+
     }
 }
