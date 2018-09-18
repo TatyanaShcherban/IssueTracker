@@ -21,16 +21,18 @@ namespace IssueTracker.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetIssueData(int id)
+        public ActionResult CreateIssueWindow(int id)
         {
-            IEnumerable<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectID == id);
-            ViewBag.Issues = allIssues;
-            return PartialView("~/Views/Home/_GetIssueDataPartial.cshtml", ViewBag.Issues);
+            IEnumerable<Project> choosedProject = dataBaseObject.Projects.Where(item => item.Id == id);
+            ViewBag.Projects = choosedProject;
+            return PartialView("~/Views/Home/NewIssueWindow.cshtml", ViewBag.Projects);
         }
 
         [HttpGet]
-        public ActionResult OpenCreateWindow()
+        public ActionResult EditIssueWindow(int id)
         {
+            IEnumerable<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectID == id);
+            ViewBag.Issues = allIssues;
             return PartialView("~/Views/Home/NewIssueWindow.cshtml");
         }
 
@@ -45,12 +47,8 @@ namespace IssueTracker.Controllers
             catch (Exception ex){
                 return ex.ToString();
             }
-
-            return "Saved";//View("~/Views/Home/Index.cshtml");
+            return "Saved";
         }
-
-
-
 
     }
 }
