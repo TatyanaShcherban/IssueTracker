@@ -3,70 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- FORM -->
-<div id="createIssue" class="modal fade">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal">×</button>
-                <h4 class="modal-title">Create new issue</h4>
-            </div>
-            <form role="form" method="post" action="./AddToDataBaseNewIssue">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-lg-1">
-                                <button class="btn btn-primary" type="submit">Save</button>
-                            </div>
-                            <div class="col-lg-3">
-                                <input type="text" class="form-control" name="LifeCycleID" value="New" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-lg-9">
-                                <label for="NumberIssue">Project Name:</label>
-                                <input type="text" class="form-control" name="ProjectID" readonly>
-                            </div>
-                            <div class="col-lg-3">
-                                <label for="NumberIssue">Number:</label>
-                                <input type="text" class="form-control" name="Number" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="SummaryIssue">Summary:</label>
-                        <input type="text" class="form-control" name="Summary">
-                    </div>
-                    <div class="form-group">
-                        <label for="DescriptionIssue">Description:</label>
-                        <textarea class="form-control" name="Description" rows="5"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <label for="AssigneeIssue">Assignee:</label>
-                                <input type="text" class="form-control" name="Assignee">
-                            </div>
-                            <div class="col-lg-6">
-                                <label for="PriorityIssue">Priority</label>
-                                <select class="form-control" name="Priority">
-                                    <option>Critical</option>
-                                    <option>High</option>
-                                    <option>Medium</option>
-                                    <option>Trivial</option>
-                                    <option>Low</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <!-- DROPDOWN -->
 <div class="row">
     <div class="col-lg-12">
@@ -90,10 +26,15 @@
 <!-- BUTTON -->
 <div class="row">
     <div class="col-lg-12">
-        <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#createIssue">Create</button>
+        <div class="panel-body">
+            <button type="button" id="createButton" class="btn btn-primary" style="float:right;" data-toggle="modal" data-target="#createIssue">Create</button>
+        </div>
     </div>
 </div>
-
+<!-- FORM -->
+<div id="createIssue" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered modal-lg" id="dialogContent"></div>
+</div>
 
 @section scripts{
     <script type="text/javascript">
@@ -109,21 +50,51 @@
                 });
             });
         })
-        
+
+
+        //$(function () {
+        //    $.ajaxSetup({ cache: false });
+        //    $(".createButton").click(function (e) {
+
+        //        e.preventDefault();
+        //        $.get(this.href, function (data) {
+        //            $('#dialogContent').html(data);
+        //            $('#createIssue').modal('show');
+        //        });
+        //    });
+        //})
+
+
+        $(function () {
+            $('#createButton').click(function () {
+                var id = $("#projectidForAjax").val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("CreateIssueWindow")/' + id,
+                    success: function (data) {
+                        $('#dialogContent').html(data);
+                        $('#createIssue').modal('show');
+
+                    }
+                });
+            });
+        })
+
+        $(function () {
+                $('#editButton').click(function () {
+                    var id = $("#projectidForAjax").val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("EditIssueWindow")/' + id,
+                        success: function () {
+$('#dialogContent').html(data);
+                        $('#createIssue').modal('show');
+                        }
+                    });
+                });
+            })
+
+
     </script>
 
-    <script type="text/javascript">
-    $(function () {
-        $('#buttonCreateIssue').click(function () {
-            $.ajax({
-                type: 'GET',
-                url: '@Url.Action("NewIssueWindow")',
-                success: function(data) {
-//
-                }
-            });
-        });
-    })
-        </script>
-
-    }
+}
