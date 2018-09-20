@@ -9,9 +9,18 @@ namespace IssueTracker.Models
     {
         // Project ID 
         public int Id { get; set; }
+
         // Project name
         public string Name { get; set; }
+
         // Project description
         public string Description { get; set; }
+
+        public virtual ICollection<Issue> Issues { get; set; }
+        public Project()
+        {
+            Issues = new List<Issue>();
+        }
+
     }
 }
