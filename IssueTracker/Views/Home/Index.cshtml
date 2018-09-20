@@ -27,12 +27,12 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="panel-body">
-            <button type="button" id="createButton" class="btn btn-primary" style="float:right;" data-toggle="modal" data-target="#createIssue">Create</button>
+            <button type="button" id="createButton" class="btn btn-primary" style="float:right;" data-toggle="modal" data-target="#issue">Create</button>
         </div>
     </div>
 </div>
 <!-- FORM -->
-<div id="createIssue" class="modal fade">
+<div id="issue" class="modal fade">
     <div class="modal-dialog modal-dialog-centered modal-lg" id="dialogContent"></div>
 </div>
 
@@ -51,20 +51,6 @@
             });
         })
 
-
-        //$(function () {
-        //    $.ajaxSetup({ cache: false });
-        //    $(".createButton").click(function (e) {
-
-        //        e.preventDefault();
-        //        $.get(this.href, function (data) {
-        //            $('#dialogContent').html(data);
-        //            $('#createIssue').modal('show');
-        //        });
-        //    });
-        //})
-
-
         $(function () {
             $('#createButton').click(function () {
                 var id = $("#projectidForAjax").val();
@@ -73,7 +59,7 @@
                     url: '@Url.Action("CreateIssueWindow")/' + id,
                     success: function (data) {
                         $('#dialogContent').html(data);
-                        $('#createIssue').modal('show');
+                        $('#issue').modal('show');
 
                     }
                 });
@@ -81,20 +67,17 @@
         })
 
         $(function () {
-                $('#editButton').click(function () {
-                    var id = $("#projectidForAjax").val();
-                    $.ajax({
-                        type: 'GET',
-                        url: '@Url.Action("EditIssueWindow")/' + id,
-                        success: function () {
-$('#dialogContent').html(data);
-                        $('#createIssue').modal('show');
-                        }
-                    });
+            $('button[name=editButton]').click(function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("EditIssueWindow")/' + id,
+                    success: function (data) {
+                        $('#dialogContent').html(data);
+                        $('#issue').modal('show');
+                    }
                 });
-            })
-
-
+            });
+        })
     </script>
-
 }
