@@ -6,7 +6,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-//for me: improve code: exceptions, dublicate 
 namespace IssueTracker.Controllers
 {
     public class HomeController : Controller
@@ -30,7 +29,10 @@ namespace IssueTracker.Controllers
         {
             IEnumerable<Issue> allIssues = dataBaseObject.Issues.Where(item => item.Project.Id == id);
             ViewBag.Issues = allIssues;
-            return PartialView("~/Views/Home/_GetIssueDataPartial.cshtml", ViewBag.Issues);
+            if (ViewBag.Issues != null)
+                return PartialView("~/Views/Home/TableDataPartial.cshtml", ViewBag.Issues);
+            else
+                return HttpNotFound();
         }
         // This method for opening modal window to create new issue 
         [HttpGet]
@@ -41,7 +43,7 @@ namespace IssueTracker.Controllers
                 return PartialView("~/Views/Home/NewIssueWindow.cshtml", choosedProject);
             return HttpNotFound();
         }
-
+        // This method for opening modal window with information about issue which was choosen
         [HttpGet]
         public ActionResult EditIssueWindow(int id)
         {
@@ -51,28 +53,42 @@ namespace IssueTracker.Controllers
             return HttpNotFound();
         }
 
+        // This method allows to edit some information about existing issue
         [HttpPost]
         public ActionResult EditDataBaseIssue(Issue issue, LifeCycle lifeCycle)
         {
-            var id =
-                (from cust in dataBaseObject.LifeCycles
-                where cust.State == lifeCycle.State
-                select cust.Id).Single();
-            issue.LifeCycleId = id;
-            Issue editedIssue = new Issue();
-            editedIssue = issue;
-            dataBaseObject.Entry(editedIssue).State = EntityState.Modified;
-            dataBaseObject.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                var id =
+                    (from table in dataBaseObject.LifeCycles
+                     where table.State == lifeCycle.State
+                     select table.Id).Single();
+                issue.LifeCycleId = id;
+                Issue editedIssue = issue;
+                dataBaseObject.Entry(editedIssue).State = EntityState.Modified;
+                dataBaseObject.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (ArgumentNullException)
+            {
+                return HttpNotFound();
+            }
         }
 
-        // Saving to database issue
+        // Saving to database the new issue
         [HttpPost]
         public ActionResult AddToDataBaseNewIssue(Issue issue)
         {
-            dataBaseObject.Issues.Add(issue);
-            dataBaseObject.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                dataBaseObject.Issues.Add(issue);
+                dataBaseObject.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (ArgumentNullException e)
+            {
+                throw new ArgumentNullException("Some fields are NULL. Details: " + e.ToString());
+            }
         }
     }
 }
