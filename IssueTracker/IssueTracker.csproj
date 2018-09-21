@@ -186,10 +186,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\_GetIssueDataPartial.cshtml" />
+    <Content Include="Views\Home\NewIssueWindow.cshtml" />
+    <Content Include="Views\Home\PartialViewForCreateAndEdit.cshtml" />
+    <Content Include="Views\Home\EditIssueWindow.cshtml" />
+    <Content Include="Views\Home\TableDataPartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
