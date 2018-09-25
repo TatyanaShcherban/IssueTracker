@@ -22,7 +22,19 @@ namespace IssueTracker.Controllers
         [HttpGet]
         public ActionResult Kanban()
         {
+            SelectList allProjects = new SelectList(dataBaseObject.Projects, "id", "Name");
+            ViewBag.Projects = allProjects;
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetProjectIssuesForKanban(int id)
+        {
+            List<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectId == id).ToList();
+            if (allIssues != null)
+                return PartialView("~/Views/Home/ProjectIssuesForKanban.cshtml", allIssues);
+            else
+                return HttpNotFound();
         }
 
         [HttpPost]
