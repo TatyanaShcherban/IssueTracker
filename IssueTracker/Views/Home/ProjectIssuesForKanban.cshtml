@@ -1,0 +1,71 @@
+﻿@using IssueTracker.Models;
+@model List<Issue>
+
+<script type="text/javascript">
+    $(function () {
+        $(".sortable").sortable({
+            placeholder: 'placeholder',
+            connectWith: ".connectedSortable",
+        }).disableSelection();
+    });
+</script>
+
+<div class="col-lg-12">
+    <div class="col-lg-4">
+        <h3>Backlog</h3>
+        <div class="sortable connectedSortable" style="background-color:pink;">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (item.LifeCycleId == 1)
+                    {
+                        <div class="card">
+                            <p>Summary: @item.Summary</p>
+                            <p>Priority: @item.Priority</p>
+                            <p>Assignee: @item.Assignee</p>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <h3>In Progress</h3>
+        <div class="sortable connectedSortable" style="background-color:orange;">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (item.LifeCycleId == 6)
+                    {
+                        <div class="card">
+                            <p>Summary: @item.Summary</p>
+                            <p>Priority: @item.Priority</p>
+                            <p>Assignee: @item.Assignee</p>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <h3>Done</h3>
+        <div class="sortable connectedSortable" style="background-color:green;">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (item.LifeCycleId == 7)
+                    {
+                        <div class="card">
+                            <p>Summary: @item.Summary</p>
+                            <p>Priority: @item.Priority</p>
+                            <p>Assignee: @item.Assignee</p>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
