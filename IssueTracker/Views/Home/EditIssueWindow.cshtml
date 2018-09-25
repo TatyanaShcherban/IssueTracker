@@ -1,4 +1,4 @@
-﻿@Model IssueTracker.Models.Issue
+﻿@model IssueTracker.Models.Issue
 <!-- FORM -->
 <script>
     function loadPageforNew() {
@@ -17,9 +17,8 @@
         <button class="close" type="button" data-dismiss="modal">×</button>
         <h4 class="modal-title">Edit issue</h4>
     </div>
-    <form role="form" method="post" action="/Home/EditDataBaseIssue">
+    <form role="form" method="post" action="/Home/SaveEditedIssue">
         <input type="hidden" value="@Model.Id" name="Id" />
-
         <input type="hidden" value="@Model.Project.Id" name="ProjectId" />
         @Html.Partial("~/Views/Home/PartialViewForCreateAndEdit.cshtml");
     </form>

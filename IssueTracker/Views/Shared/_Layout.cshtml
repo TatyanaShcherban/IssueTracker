@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/css")
 </head>
 <body>
+    @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
     <!-- HEADER -->
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -21,13 +22,12 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Kanban", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Kanban", "Kanban", "Home")</li>
                 </ul>
             </div>
         </div>
     </div>
     <!-- HEADER -->
-
     <!-- CONTENT -->
     <div class="container body-content">
         @RenderBody()
@@ -41,10 +41,8 @@
         <hr />
     </footer>
     <!-- FOOTER -->
-    @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
     @Scripts.Render("~/bundles/bootstrap")
     @*@Scripts.Render("~/scripts/validate.min.js")*@
-
     @RenderSection("scripts", required: false)
 </body>
 </html>

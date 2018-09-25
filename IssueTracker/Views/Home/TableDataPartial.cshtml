@@ -1,4 +1,8 @@
-﻿<table class="table table-fixed table-striped">
+﻿@using IssueTracker.Models;
+@model List<Issue>
+     
+
+<table class="table table-fixed table-striped">
     <thead>
         <tr>
             <th class="col-lg-1">№</th>
@@ -9,17 +13,35 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in ViewBag.Issues)
+        @if (Model != null)
         {
-            <tr>
-                <td class="col-lg-1">@item.Number</td>
-                <td class="col-lg-3">@item.Summary</td>
-                <td class="col-lg-4">@item.Description</td>
-                <td class="col-lg-2">@item.Priority</td>
-                <td class="col-lg-2">@item.Assignee</td>
-                <td> <button type="button" id="editButton" name="editButton" value="@item.Id" class="btn btn-default" data-toggle="modal" data-target="#issue">Edit</button></td>
-            </tr>
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td class="col-lg-1">@item.Number</td>
+                    <td class="col-lg-3">@item.Summary</td>
+                    <td class="col-lg-4">@item.Description</td>
+                    <td class="col-lg-2">@item.Priority</td>
+                    <td class="col-lg-2">@item.Assignee</td>
+                    <td> <button type="button" id="editButton" name="editButton" value="@item.Id" class="btn btn-default" data-toggle="modal" data-target="#issue">Edit</button></td>
+                </tr>
+            }
         }
     </tbody>
 </table>
 
+<script>
+    $(function () {
+        $('button[name=editButton]').click(function () {
+            var id = $(this).val();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("OpenWindowForEditIssue")/' + id,
+                success: function (data) {
+                    $('#dialogContent').html(data);
+                    $('#issue').modal('show');
+                }
+            });
+        });
+    })
+</script>

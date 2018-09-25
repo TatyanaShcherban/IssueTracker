@@ -1,51 +1,51 @@
 ﻿using IssueTracker.Models;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace IssueTracker.Controllers
 {
     public class HomeController : Controller
     {
-        // Create data context
         Context dataBaseObject = new Context();
 
-        // Main view
+        [HttpGet]
         public ActionResult Index()
         {
             SelectList allProjects = new SelectList(dataBaseObject.Projects, "id", "Name");
             ViewBag.Projects = allProjects;
-            IEnumerable<Issue> allIssues = dataBaseObject.Issues.Where(item => item.Project.Id == 4);
-            ViewBag.Issues = allIssues;
+            //List<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectId == 4).ToList();
             return View();
         }
 
-        // This method for changing tables 
         [HttpGet]
-        public ActionResult GetIssueData(int id)
+        public ActionResult Kanban()
         {
-            IEnumerable<Issue> allIssues = dataBaseObject.Issues.Where(item => item.Project.Id == id);
-            ViewBag.Issues = allIssues;
-            if (ViewBag.Issues != null)
-                return PartialView("~/Views/Home/TableDataPartial.cshtml", ViewBag.Issues);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetProjectIssues(int id)
+        {
+            List<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectId == id).ToList();
+            if (allIssues != null)
+                return PartialView("~/Views/Home/TableDataPartial.cshtml", allIssues);
             else
                 return HttpNotFound();
         }
-        // This method for opening modal window to create new issue 
-        [HttpGet]
-        public ActionResult CreateIssueWindow(int id)
+
+        [HttpPost]
+        public ActionResult OpenWindowForCreateIssue(int id)
         {
             Project choosedProject = dataBaseObject.Projects.FirstOrDefault(item => item.Id == id);
             if (choosedProject != null)
                 return PartialView("~/Views/Home/NewIssueWindow.cshtml", choosedProject);
             return HttpNotFound();
         }
-        // This method for opening modal window with information about issue which was choosen
-        [HttpGet]
-        public ActionResult EditIssueWindow(int id)
+
+        [HttpPost]
+        public ActionResult OpenWindowForEditIssue(int id)
         {
             Issue choosedIssue = dataBaseObject.Issues.FirstOrDefault(item => item.Id == id);
             if (choosedIssue != null)
@@ -53,9 +53,8 @@ namespace IssueTracker.Controllers
             return HttpNotFound();
         }
 
-        // This method allows to edit some information about existing issue
         [HttpPost]
-        public ActionResult EditDataBaseIssue(Issue issue, LifeCycle lifeCycle)
+        public ActionResult SaveEditedIssue(Issue issue, LifeCycle lifeCycle)
         {
             try
             {
@@ -64,20 +63,19 @@ namespace IssueTracker.Controllers
                      where table.State == lifeCycle.State
                      select table.Id).Single();
                 issue.LifeCycleId = id;
-                Issue editedIssue = issue;
+                Issue editedIssue = new Issue();
+                editedIssue = issue;
                 dataBaseObject.Entry(editedIssue).State = EntityState.Modified;
                 dataBaseObject.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (ArgumentNullException)
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
             {
-                return HttpNotFound();
+                throw new System.Data.Entity.Infrastructure.DbUpdateException("Some fields are NULL. Details: " + e.ToString());
             }
         }
-
-        // Saving to database the new issue
         [HttpPost]
-        public ActionResult AddToDataBaseNewIssue(Issue issue)
+        public ActionResult SaveNewIssue(Issue issue)
         {
             try
             {
@@ -85,9 +83,9 @@ namespace IssueTracker.Controllers
                 dataBaseObject.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (ArgumentNullException e)
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
             {
-                throw new ArgumentNullException("Some fields are NULL. Details: " + e.ToString());
+                throw new System.Data.Entity.Infrastructure.DbUpdateException("Some fields are NULL. Details: " + e.ToString());
             }
         }
     }

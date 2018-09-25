@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "IssueTrack";
+    ViewBag.Title = "IssueTracker";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -8,7 +8,7 @@
     <div class="col-lg-12">
         <h3>Choose project name:</h3>
         <div class="panel-body">
-            @Html.DropDownList("ProjectsList", ViewBag.Projects as SelectList, new { id = "projectidForAjax", @class = "form-control" })
+            @Html.DropDownList("ProjectsList", ViewBag.Projects as SelectList, "Choose project...", new { id = "projectidForAjax", @class = "form-control" })
         </div>
     </div>
 </div>
@@ -40,38 +40,21 @@
     <script type="text/javascript">
         $(function () {
             $('#projectidForAjax').change(function () {
-                var id = $(this).val();
+                var projectId = $(this).val();
                 $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetIssueData")/' + id,
+                    type: 'POST',
+                    url: '@Url.Action("GetProjectIssues")/' + projectId,
                     success: function (data) {
                         $('#partialDivForAjax table').replaceWith(data);
                     }
                 });
             });
-        })
 
-        $(function () {
             $('#createButton').click(function () {
-                var id = $("#projectidForAjax").val();
+                var issueId = $("#projectidForAjax").val();
                 $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("CreateIssueWindow")/' + id,
-                    success: function (data) {
-                        $('#dialogContent').html(data);
-                        $('#issue').modal('show');
-
-                    }
-                });
-            });
-        })
-
-        $(function () {
-            $('button[name=editButton]').click(function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("EditIssueWindow")/' + id,
+                    type: 'POST',
+                    url: '@Url.Action("OpenWindowForCreateIssue")/' + issueId,
                     success: function (data) {
                         $('#dialogContent').html(data);
                         $('#issue').modal('show');
