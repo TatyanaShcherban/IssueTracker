@@ -1,0 +1,188 @@
+﻿<script src='@Url.Content("~/Scripts/jquery-ui-1.10.2.min.js")' type="text/javascript"></script>
+
+<script>
+    var DragManager = new function () {
+        var dragObject = {};
+        var self = this;
+
+        function onMouseDown(event) {
+            if (event.which != 1) return; 
+            var elem = event.target.closest('.draggable');  
+            if (!elem) return; 
+            dragObject.elem = elem;
+            dragObject.downX = event.pageX; 
+            dragObject.downY = event.pageY;
+            return false;
+        }
+
+        function onMouseMove(event) {
+            if (!dragObject.elem) return;
+            if (!dragObject.issueBlock) { 
+                var moveX = event.pageX - dragObject.downX;
+                var moveY = event.pageY - dragObject.downY;
+                if (Math.abs(moveX) < 3 && Math.abs(moveY) < 3) { 
+                    return;
+                }
+                dragObject.issueBlock = createIssueBlock(event); 
+                if (!dragObject.issueBlock) {
+                    dragObject = {};
+                    return;
+                }
+                var coords = getCoords(dragObject.issueBlock);
+                dragObject.shiftX = dragObject.downX - coords.left;
+                dragObject.shiftY = dragObject.downY - coords.top;
+                startDrag(event); 
+            }
+            dragObject.issueBlock.style.left = event.pageX - dragObject.shiftX + 'px';
+            dragObject.issueBlock.style.top = event.pageY - dragObject.shiftY + 'px';
+            return false;
+        }
+
+        function onMouseUp(event) {
+            if (dragObject.issueBlock) {
+                finishDrag(event);
+            }
+            dragObject = {};
+        }
+//-------------------------------------------------------------------------------------------------------------------------------------------//
+        
+        function finishDrag(event) {
+            var dropElem = findDroppable(event);
+            if (!dropElem) {
+                self.onDragCancel(dragObject);
+            } else {
+                self.onDragEnd(dragObject, dropElem);
+            }
+        }
+
+        function createIssueBlock(e) {
+            var issueBlock = dragObject.elem;
+            var old = {
+                parent: issueBlock.parentNode,
+                nextSibling: issueBlock.nextSibling,
+                position: issueBlock.position || '',
+                left: issueBlock.left || '',
+                top: issueBlock.top || '',
+                zIndex: issueBlock.zIndex || ''
+            };
+
+            issueBlock.rollback = function () {
+                old.parent.insertBefore(issueBlock, old.nextSibling);
+                issueBlock.style.position = old.position;
+                issueBlock.style.left = old.left;
+                issueBlock.style.top = old.top;
+                issueBlock.style.zIndex = old.zIndex
+            };
+            return issueBlock;
+        }
+
+        function startDrag(event) {                                        
+            var issueBlock = dragObject.issueBlock;
+            document.body.appendChild(issueBlock);
+            issueBlock.style.zIndex = 9999;
+            issueBlock.style.position = 'absolute';
+        }
+
+        function findDroppable(event) {
+            dragObject.issueBlock.hidden = true;
+            var elem = document.elementFromPoint(event.clientX, event.clientY);
+            dragObject.issueBlock.hidden = false;
+            if (elem == null) {
+                return null;
+            }
+            return elem.closest('.droppable');
+        }
+        document.onmousemove = onMouseMove;
+        document.onmouseup = onMouseUp;
+        document.onmousedown = onMouseDown;
+        this.onDragEnd = function (dragObject, dropElem) { };
+        this.onDragCancel = function (dragObject) { };
+    };
+
+    function getCoords(elem) {                                               
+        var box = elem.getBoundingClientRect();
+        return {
+            top: box.top + pageYOffset,
+            left: box.left + pageXOffset
+        };
+    }
+</script>
+
+<style>
+    .placeholder { /*навороты*/
+        border: 1px dotted gray;
+        background-color: Gainsboro;
+        width: 356px;
+        height: 100px;
+        box-shadow: 0px 0px 10px #888;
+    }
+
+    .field {
+        margin-top: 10px;
+        height: 500px;
+        border: 2px groove black;
+        background-color: Gainsboro;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .blockIssue {
+        /*position: absolute;*/
+        left: 0;
+        top: 0;
+        width: 356px;
+        height: 100px;
+        border: 2px groove black;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    h3 {
+        margin-top: 70px;
+    }
+</style>
+
+<script>
+    DragManager.onDragCancel = function (dragObject) {
+        dragObject.issueBlock.rollback();
+    };
+
+    DragManager.onDragEnd = function (dragObject, dropElem) {
+        dropElem.style.background = "red";
+        setTimeout(function () {
+            dropElem.style.background = "Gainsboro";
+        }, 300);
+    };
+</script>
+
+<div class="row">
+    <div class="col-lg-4">
+        <h3>New</h3>
+        <div class="droppable field grid" id="field">
+            <div class="draggable blockIssue" id="ball">1</div>
+            <div class="draggable blockIssue" id="ball">2</div>
+            <div class="draggable blockIssue" id="ball">3</div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <h3>In process</h3>
+        <div class="droppable field grid" id="field">
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <h3>Done</h3>
+        <div class="droppable field grid" id="field">
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(".grid").sortable({
+            tolerance: 'pointer',
+            revert: 'invalid',
+            placeholder: 'span2 well placeholder tile',
+            forceHelperSize: true
+        });
+    });
+</script>
