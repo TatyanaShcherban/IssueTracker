@@ -256,6 +256,7 @@
     <Content Include="Views\Home\EditIssueWindow.cshtml" />
     <Content Include="Views\Home\TableDataPartial.cshtml" />
     <Content Include="Views\Home\Kanban.cshtml" />
+    <Content Include="Views\Home\ProjectIssuesForKanban.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -38,6 +38,18 @@ namespace IssueTracker.Controllers
         }
 
         [HttpPost]
+        public void SaveChangesInKanban(int id, int name)   //id - номер таблички(лайфсайкл), нейм - какой ишью менять
+        {
+            Issue changedIssue = dataBaseObject.Issues.Where(item => item.Id == name).Single();
+            if (changedIssue != null)
+            {
+                changedIssue.LifeCycleId = id;
+                dataBaseObject.SaveChanges();
+            }
+        }
+
+
+        [HttpPost]
         public ActionResult GetProjectIssues(int id)
         {
             List<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectId == id).ToList();
