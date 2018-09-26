@@ -48,6 +48,9 @@
                         $('#partialDivForAjax table').replaceWith(data);
                     }
                 });
+                    var firstChild = $(this).children().eq(0);
+                    if (firstChild.prop('value') == '') firstChild.remove();
+
             });
 
             $('#createButton').click(function () {
