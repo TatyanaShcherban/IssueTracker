@@ -1,0 +1,104 @@
+﻿@model Tuple<IssueTracker.Models.Issue, IssueTracker.Models.Project>
+
+@if (Model.Item2 == null)
+{
+    <script>
+        function loadPage() {
+            document.getElementById('ProjectName').value = "@Model.Item1.Project.Name"
+            document.getElementById('Number').value = "@Model.Item1.Number";
+            document.getElementById("LifeCycle").value = "@Model.Item1.LifeCycle.State";
+            document.getElementById('Summary').value = "@Model.Item1.Summary";
+            document.getElementById('Assignee').value = "@Model.Item1.Assignee";
+            document.getElementById("Description").value = "@Model.Item1.Description";
+            document.getElementById("Priority").value = "@Model.Item1.Priority";
+            document.getElementById("Id").value = "@Model.Item1.Id";
+            document.getElementById("ProjectId").value = "@Model.Item1.Project.Id";
+            return;
+
+        }
+    </script>
+}
+else
+{
+    <script>
+        function loadPage() {
+            document.getElementById("LifeCycle").disabled = true;
+            document.getElementById('ProjectName').readOnly = true;
+            document.getElementById('Number').readOnly = true;
+            document.getElementById('ProjectName').value = "@Model.Item2.Name";
+            var codeIssue = "00000" + (@Model.Item2.Issues.Count +1);
+            document.getElementById("Number").value = codeIssue;
+            document.getElementById("ProjectId").value = "@Model.Item2.Id";
+            return;
+        }
+    </script>
+}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal">×</button>
+        <h4 class="modal-title">Edit issue</h4>
+    </div>
+    <form role="form" method="post" action="/Home/SaveEditedIssue">
+        <input type="hidden" id="Id" name="Id"/>
+        <input type="hidden" id="ProjectId" name="ProjectId"/>
+        <div class="modal-body">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-1">
+                        <button id="SaveButton" class="btn btn-primary" type="submit">Save</button>
+                    </div>
+                    <div class="col-lg-3">
+                        <select class="form-control" id="LifeCycle" name="State">
+                            <option>New</option>
+                            <option>In progress</option>
+                            <option>Done</option>
+                            <option>Approved</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <label for="NumberIssue">Project Name:</label>
+                        <input type="text" class="form-control" id="ProjectName" name="Name">
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="NumberIssue">Number:</label>
+                        <input type="text" class="form-control" id="Number" name="Number">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="SummaryIssue">Summary:</label>
+                <input type="text" class="form-control" id="Summary" name="Summary">
+            </div>
+            <div class="form-group">
+                <label for="DescriptionIssue">Description:</label>
+                <textarea class="form-control" id="Description" name="Description" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="AssigneeIssue">Assignee:</label>
+                        <input type="text" class="form-control" id="Assignee" name="Assignee">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="PriorityIssue">Priority:</label>
+                        <select class="form-control" id="Priority" name="Priority">
+                            <option>Critical</option>
+                            <option>High</option>
+                            <option>Medium</option>
+                            <option>Trivial</option>
+                            <option>Low</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            loadPage()
+        </script>
+    </form>
+</div>

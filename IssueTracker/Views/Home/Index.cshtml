@@ -3,7 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- DROPDOWN -->
 <div class="row">
     <div class="col-lg-12">
         <h3>Choose project name:</h3>
@@ -12,7 +11,6 @@
         </div>
     </div>
 </div>
-<!-- TABLE -->
 <div class="row">
     <div class="col-lg-12">
         <div id="partialDivForAjax">
@@ -23,7 +21,6 @@
         </div>
     </div>
 </div>
-<!-- BUTTON -->
 <div class="row">
     <div class="col-lg-12">
         <div class="panel-body">
@@ -31,7 +28,6 @@
         </div>
     </div>
 </div>
-<!-- FORM -->
 <div id="issue" class="modal fade">
     <div class="modal-dialog modal-dialog-centered modal-lg" id="dialogContent"></div>
 </div>
@@ -48,8 +44,8 @@
                         $('#partialDivForAjax table').replaceWith(data);
                     }
                 });
-                    var firstChild = $(this).children().eq(0);
-                    if (firstChild.prop('value') == '') firstChild.remove();
+                var firstChild = $(this).children().eq(0);
+                if (firstChild.prop('value') == '') firstChild.remove();
 
             });
 
@@ -57,7 +53,7 @@
                 var issueId = $("#projectidForAjax").val();
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("OpenWindowForCreateIssue")/' + issueId,
+                    url: '@Url.Action("OpenWindowForCreateOrEditIssue")/0/' + issueId,
                     success: function (data) {
                         $('#dialogContent').html(data);
                         $('#issue').modal('show');

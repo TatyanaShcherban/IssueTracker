@@ -147,7 +147,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Style.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -251,9 +250,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\NewIssueWindow.cshtml" />
-    <Content Include="Views\Home\PartialViewForCreateAndEdit.cshtml" />
-    <Content Include="Views\Home\EditIssueWindow.cshtml" />
+    <Content Include="Views\Home\IssueWindow.cshtml" />
     <Content Include="Views\Home\TableDataPartial.cshtml" />
     <Content Include="Views\Home\Kanban.cshtml" />
     <Content Include="Views\Home\ProjectIssuesForKanban.cshtml" />
