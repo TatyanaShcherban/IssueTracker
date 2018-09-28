@@ -39,9 +39,9 @@ else
         <button class="close" type="button" data-dismiss="modal">×</button>
         <h4 class="modal-title">Edit issue</h4>
     </div>
-    <form role="form" method="post" action="/Home/SaveEditedIssue">
+    <form role="form" method="post" action="/Home/SaveIssue">
         <input type="hidden" id="Id" name="Id"/>
-        <input type="hidden" id="ProjectId" name="ProjectId"/>
+        <input type="hidden" id="ProjectId" name="ProjectId" />
         <div class="modal-body">
             <div class="form-group">
                 <div class="row">
@@ -97,8 +97,9 @@ else
                 </div>
             </div>
         </div>
-        <script>
-            loadPage()
-        </script>
     </form>
 </div>
+
+<script>
+    loadPage()
+</script>

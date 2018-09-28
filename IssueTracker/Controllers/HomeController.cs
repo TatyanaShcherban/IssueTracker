@@ -20,17 +20,6 @@ namespace IssueTracker.Controllers
         }
 
         [HttpPost]
-        public void SaveChangesInKanban(int id, int name)   //id - номер таблички(лайфсайкл), нейм - какой ишью менять
-        {
-            Issue changedIssue = dataBaseObject.Issues.Where(item => item.Id == name).Single();
-            if (changedIssue != null)
-            {
-                changedIssue.LifeCycleId = id;
-                dataBaseObject.SaveChanges();
-            }
-        }
-
-        [HttpPost]
         public ActionResult GetProjectIssues(int id)
         {
             List<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectId == id).ToList();
@@ -41,7 +30,7 @@ namespace IssueTracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult OpenWindowForCreateOrEditIssue(int id, int name) //id = issue name = project
+        public ActionResult OpenWindowForCreateOrEditIssue(int id, int id2) //id = issue id2 = project
         {
             Issue choosedIssue = null;
             Project choosedProject = null;
@@ -49,9 +38,9 @@ namespace IssueTracker.Controllers
             {
                 choosedIssue = dataBaseObject.Issues.FirstOrDefault(item => item.Id == id);
             }
-            if (name != 0)
+            if (id2 != 0)
             {
-                choosedProject = dataBaseObject.Projects.FirstOrDefault(item => item.Id == name);
+                choosedProject = dataBaseObject.Projects.FirstOrDefault(item => item.Id == id2);
 
             }
             var tuple = new Tuple<Issue, Project>(choosedIssue, choosedProject);
@@ -59,7 +48,7 @@ namespace IssueTracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveEditedIssue(Issue issue, LifeCycle lifeCycle)
+        public ActionResult SaveIssue(Issue issue, LifeCycle lifeCycle)
         {
             try
             {
@@ -70,11 +59,9 @@ namespace IssueTracker.Controllers
                 }
                 else
                 {
-                    var id =
-                        (from table in dataBaseObject.LifeCycles
-                         where table.State == lifeCycle.State
-                         select table.Id).Single();
-                    issue.LifeCycleId = id;
+                    issue.LifeCycleId = (from table in dataBaseObject.LifeCycles
+                                         where table.State == lifeCycle.State
+                                         select table.Id).Single();
                     Issue editedIssue = new Issue();
                     editedIssue = issue;
                     dataBaseObject.Entry(editedIssue).State = EntityState.Modified;
@@ -105,6 +92,17 @@ namespace IssueTracker.Controllers
                 return PartialView("~/Views/Home/ProjectIssuesForKanban.cshtml", allIssues);
             else
                 return HttpNotFound();
+        }
+
+        [HttpPost]
+        public void SaveLifeCycleInIssueInKanban(int id, int id2)   //id -number table(lifecycle), id2 - issueId
+        {
+            Issue changedIssue = dataBaseObject.Issues.Where(item => item.Id == id2).Single();
+            if (changedIssue != null)
+            {
+                changedIssue.LifeCycleId = id;
+                dataBaseObject.SaveChanges();
+            }
         }
     }
 }
