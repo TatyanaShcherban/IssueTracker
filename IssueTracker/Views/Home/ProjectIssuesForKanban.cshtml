@@ -2,7 +2,6 @@
 @model List<Issue>
 
 <script type="text/javascript">
-
     $(function () {
         $('.sortable').sortable({
             placeholder: 'placeholder',
@@ -16,18 +15,17 @@
                 tableId = parseInt(tableId);
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("SaveChangesInKanban")/' + tableId + "/" + issueId,
+                    url: '@Url.Action("SaveLifeCycleInIssueInKanban")/' + tableId + "/" + issueId,
                 });
             }
         });
     });
-
 </script>
 
 <div class="col-lg-12">
     <div class="col-lg-4">
         <h3>Backlog</h3>
-        <div class="sortable connectedSortable drop"  id="1table" style="background-color:pink;">
+        <div class="sortable connectedSortable drop" id="1table" style="background-color:Lavender;">
             @if (Model != null)
             {
                 foreach (var item in Model)
@@ -46,7 +44,7 @@
     </div>
     <div class="col-lg-4">
         <h3>In Progress</h3>
-        <div class="sortable connectedSortable drop" id="6table"  style="background-color:orange;">
+        <div class="sortable connectedSortable drop" id="6table" style="background-color:Khaki;">
             @if (Model != null)
             {
                 foreach (var item in Model)
@@ -65,7 +63,7 @@
     </div>
     <div class="col-lg-4">
         <h3>Done</h3>
-        <div class="sortable connectedSortable drop" id="7table" style="background-color:green;">
+        <div class="sortable connectedSortable drop" id="7table" style="background-color:PaleGreen;">
             @if (Model != null)
             {
                 foreach (var item in Model)
