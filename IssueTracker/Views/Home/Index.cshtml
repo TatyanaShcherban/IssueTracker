@@ -41,12 +41,14 @@
                     type: 'POST',
                     url: '@Url.Action("GetProjectIssues")/' + projectId,
                     success: function (data) {
-                        $('#partialDivForAjax table').replaceWith(data);
+                        $('#partialDivForAjax>div').replaceWith(data);
                         $('#createButton').css('visibility', 'visible');
                     }
                 });
                 var firstChild = $(this).children().eq(0);
-                if (firstChild.prop('value') == '') firstChild.remove();
+                if (firstChild.prop('value') == '') {
+                    firstChild.remove();
+                }
 
             });
 
