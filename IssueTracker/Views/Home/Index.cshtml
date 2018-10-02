@@ -24,7 +24,7 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="panel-body">
-            <button type="button" id="createButton" class="btn btn-primary" style="float:right;" data-toggle="modal" data-target="#issue">Create</button>
+            <button type="button" id="createButton" class="btn btn-primary" style="float:right; visibility: hidden;" data-toggle="modal" data-target="#issue">Create</button>
         </div>
     </div>
 </div>
@@ -42,6 +42,7 @@
                     url: '@Url.Action("GetProjectIssues")/' + projectId,
                     success: function (data) {
                         $('#partialDivForAjax table').replaceWith(data);
+                        $('#createButton').css('visibility', 'visible');
                     }
                 });
                 var firstChild = $(this).children().eq(0);
