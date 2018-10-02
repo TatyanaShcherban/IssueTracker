@@ -4,7 +4,6 @@
 }
 
 <script src='@Url.Content("~/Scripts/jquery-ui-1.10.2.min.js")' type="text/javascript"></script>
-<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
 
 <div class="row">
     <div class="col-lg-12">
@@ -14,7 +13,7 @@
         </div>
     </div>
 </div>
-<div class="row" id="replace">
+<div class="row" id="projectsIssues">
     @Html.Partial("~/Views/Home/ProjectIssuesForKanban.cshtml")
 </div>
 
@@ -27,7 +26,7 @@
                     type: 'POST',
                     url: '@Url.Action("GetProjectIssuesForKanban")/' + projectId,
                     success: function (data) {
-                        $('#replace div.col-lg-12').replaceWith(data);
+                        $('#projectsIssues>div').replaceWith(data);
                     }
                 });
                 var firstChild = $(this).children().eq(0);
