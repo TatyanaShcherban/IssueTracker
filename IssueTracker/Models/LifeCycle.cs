@@ -7,14 +7,8 @@ namespace IssueTracker.Models
 {
     public class LifeCycle
     {
-
-        // Life cycle ID 
         public int Id { get; set; }
-
-        // Life cycle state of project
         public string State { get; set; }
-
-        // Navigation property
         public virtual ICollection<Issue> Issues { get; set; }
         public LifeCycle()
         {

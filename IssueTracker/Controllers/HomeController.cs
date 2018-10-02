@@ -30,7 +30,7 @@ namespace IssueTracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult OpenWindowForCreateOrEditIssue(int id, int id2) //id = issue id2 = project
+        public ActionResult OpenWindowForCreateOrEditIssue(int id, int id2)
         {
             Issue choosedIssue = null;
             Project choosedProject = null;
@@ -95,13 +95,18 @@ namespace IssueTracker.Controllers
         }
 
         [HttpPost]
-        public void SaveLifeCycleInIssueInKanban(int id, int id2)   //id -number table(lifecycle), id2 - issueId
+        public string SaveLifeCycleInIssueInKanban(int id, int id2)
         {
             Issue changedIssue = dataBaseObject.Issues.Where(item => item.Id == id2).Single();
-            if (changedIssue != null)
+            if ((changedIssue.LifeCycleId == 7) && (id == 1))
+            {
+                return "Сan not move the issue from the 'Done' to the 'Backlog' category.";
+            }
+            else
             {
                 changedIssue.LifeCycleId = id;
                 dataBaseObject.SaveChanges();
+                return "";
             }
         }
     }

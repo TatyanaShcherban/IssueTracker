@@ -1,46 +1,12 @@
 ﻿@model Tuple<IssueTracker.Models.Issue, IssueTracker.Models.Project>
 
-@if (Model.Item2 == null)
-{
-    <script>
-        function loadPage() {
-            document.getElementById('ProjectName').value = "@Model.Item1.Project.Name"
-            document.getElementById('Number').value = "@Model.Item1.Number";
-            document.getElementById("LifeCycle").value = "@Model.Item1.LifeCycle.State";
-            document.getElementById('Summary').value = "@Model.Item1.Summary";
-            document.getElementById('Assignee').value = "@Model.Item1.Assignee";
-            document.getElementById("Description").value = "@Model.Item1.Description";
-            document.getElementById("Priority").value = "@Model.Item1.Priority";
-            document.getElementById("Id").value = "@Model.Item1.Id";
-            document.getElementById("ProjectId").value = "@Model.Item1.Project.Id";
-            return;
-
-        }
-    </script>
-}
-else
-{
-    <script>
-        function loadPage() {
-            document.getElementById("LifeCycle").disabled = true;
-            document.getElementById('ProjectName').readOnly = true;
-            document.getElementById('Number').readOnly = true;
-            document.getElementById('ProjectName').value = "@Model.Item2.Name";
-            var codeIssue = "00000" + (@Model.Item2.Issues.Count +1);
-            document.getElementById("Number").value = codeIssue;
-            document.getElementById("ProjectId").value = "@Model.Item2.Id";
-            return;
-        }
-    </script>
-}
-
 <div class="modal-content">
     <div class="modal-header">
         <button class="close" type="button" data-dismiss="modal">×</button>
         <h4 class="modal-title">Edit issue</h4>
     </div>
     <form role="form" method="post" action="/Home/SaveIssue">
-        <input type="hidden" id="Id" name="Id"/>
+        <input type="hidden" id="Id" name="Id" />
         <input type="hidden" id="ProjectId" name="ProjectId" />
         <div class="modal-body">
             <div class="form-group">
@@ -99,6 +65,39 @@ else
         </div>
     </form>
 </div>
+
+@if (Model.Item2 == null)
+{
+    <script>
+        function loadPage() {
+            document.getElementById('ProjectName').value = "@Model.Item1.Project.Name"
+            document.getElementById('Number').value = "@Model.Item1.Number";
+            document.getElementById("LifeCycle").value = "@Model.Item1.LifeCycle.State";
+            document.getElementById('Summary').value = "@Model.Item1.Summary";
+            document.getElementById('Assignee').value = "@Model.Item1.Assignee";
+            document.getElementById("Description").value = "@Model.Item1.Description";
+            document.getElementById("Priority").value = "@Model.Item1.Priority";
+            document.getElementById("Id").value = "@Model.Item1.Id";
+            document.getElementById("ProjectId").value = "@Model.Item1.Project.Id";
+            return;
+
+        }
+    </script>
+}
+else
+{
+    <script>
+        function loadPage() {
+            document.getElementById("LifeCycle").disabled = true;
+            document.getElementById('ProjectName').readOnly = true;
+            document.getElementById('Number').readOnly = true;
+            document.getElementById('ProjectName').value = "@Model.Item2.Name";
+            document.getElementById("Number").value = "00000" + (@Model.Item2.Issues.Count +1);
+            document.getElementById("ProjectId").value = "@Model.Item2.Id";
+            return;
+        }
+    </script>
+}
 
 <script>
     loadPage()
