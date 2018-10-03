@@ -75,7 +75,8 @@
                     tableId = parseInt(tableId);
                     $.ajax({
                         type: 'POST',
-                        url: '@Url.Action("SaveLifeCycleInIssueInKanban")/' + tableId + "/" + issueId,
+                        url: '@Url.Action("SaveLifeCycleInIssueInKanban", "Home")',
+                        data: { 'tableId': tableId, "issueId": issueId },
                         success: function (data) {
                             if (data != "") {
                                 $(ui.draggable).appendTo($('#7table'));

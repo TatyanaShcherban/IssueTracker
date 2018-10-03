@@ -39,7 +39,8 @@
                 var projectId = $(this).val();
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("GetProjectIssues")/' + projectId,
+                    url: '@Url.Action("GetProjectIssues", "Home")',
+                    data: { 'projectId': projectId },
                     success: function (data) {
                         $('#partialDivForAjax>div').replaceWith(data);
                         $('#createButton').css('visibility', 'visible');
@@ -55,7 +56,8 @@
                 var issueId = $("#projectidForAjax").val();
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("OpenWindowForCreateOrEditIssue")/0/' + issueId,
+                    url: '@Url.Action("OpenWindowForCreateOrEditIssue", "Home")',
+                    data: { 'projectId': 0, 'issueId': issueId },
                     success: function (data) {
                         $('#dialogContent').html(data);
                         $('#issue').modal('show');

@@ -10,6 +10,9 @@ namespace IssueTracker.Controllers
     public class HomeController : Controller
     {
         Context dataBaseObject = new Context();
+        const int emptyReceivedParameter = 0;
+        const int idOfDoneСolumninLifeCyclesTable = 7;
+        const int idOfNewСolumninLifeCyclesTable = 1;
 
         [HttpGet]
         public ActionResult Index()
@@ -20,9 +23,9 @@ namespace IssueTracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetProjectIssues(int id)
+        public ActionResult GetProjectIssues(int projectId)
         {
-            List<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectId == id).ToList();
+            List<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectId == projectId).ToList();
             if (allIssues != null)
                 return PartialView("~/Views/Home/TableDataPartial.cshtml", allIssues);
             else
@@ -30,18 +33,17 @@ namespace IssueTracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult OpenWindowForCreateOrEditIssue(int id, int id2)
+        public ActionResult OpenWindowForCreateOrEditIssue(int projectId, int issueId)
         {
             Issue choosedIssue = null;
             Project choosedProject = null;
-            if (id != 0)
+            if (projectId != emptyReceivedParameter)
             {
-                choosedIssue = dataBaseObject.Issues.FirstOrDefault(item => item.Id == id);
+                choosedIssue = dataBaseObject.Issues.FirstOrDefault(item => item.Id == projectId);
             }
-            if (id2 != 0)
+            if (issueId != emptyReceivedParameter)
             {
-                choosedProject = dataBaseObject.Projects.FirstOrDefault(item => item.Id == id2);
-
+                choosedProject = dataBaseObject.Projects.FirstOrDefault(item => item.Id == issueId);
             }
             var tuple = new Tuple<Issue, Project>(choosedIssue, choosedProject);
             return PartialView("~/Views/Home/IssueWindow.cshtml", tuple);
@@ -52,9 +54,9 @@ namespace IssueTracker.Controllers
         {
             try
             {
-                if (issue.Id == 0)
+                if (issue.Id == emptyReceivedParameter)
                 {
-                    issue.LifeCycleId = 1;
+                    issue.LifeCycleId = idOfNewСolumninLifeCyclesTable;
                     dataBaseObject.Issues.Add(issue);
                 }
                 else
@@ -70,9 +72,9 @@ namespace IssueTracker.Controllers
                 dataBaseObject.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            catch (System.Data.Entity.Infrastructure.DbUpdateException exception)
             {
-                throw new System.Data.Entity.Infrastructure.DbUpdateException("Some fields are NULL. Details: " + e.ToString());
+                throw new System.Data.Entity.Infrastructure.DbUpdateException("Some fields are NULL. Details: " + exception.ToString());
             }
         }
 
@@ -85,9 +87,9 @@ namespace IssueTracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetProjectIssuesForKanban(int id)
+        public ActionResult GetProjectIssuesForKanban(int projectId)
         {
-            List<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectId == id).ToList();
+            List<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectId == projectId).ToList();
             if (allIssues != null)
                 return PartialView("~/Views/Home/ProjectIssuesForKanban.cshtml", allIssues);
             else
@@ -95,16 +97,16 @@ namespace IssueTracker.Controllers
         }
 
         [HttpPost]
-        public string SaveLifeCycleInIssueInKanban(int id, int id2)
+        public string SaveLifeCycleInIssueInKanban(int tableId, int issueId)
         {
-            Issue changedIssue = dataBaseObject.Issues.Where(item => item.Id == id2).Single();
-            if ((changedIssue.LifeCycleId == 7) && (id == 1))
+            Issue changedIssue = dataBaseObject.Issues.Where(item => item.Id == issueId).Single();
+            if ((changedIssue.LifeCycleId == idOfDoneСolumninLifeCyclesTable) && (tableId == idOfNewСolumninLifeCyclesTable))
             {
                 return "Сan not move the issue from the 'Done' to the 'Backlog' category.";
             }
             else
             {
-                changedIssue.LifeCycleId = id;
+                changedIssue.LifeCycleId = tableId;
                 dataBaseObject.SaveChanges();
                 return "";
             }

@@ -32,10 +32,11 @@
     <script>
         $(function () {
             $('button[name=editButton]').click(function () {
-                var id = $(this).val();
+                var projectId = $(this).val();
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("OpenWindowForCreateOrEditIssue")/' + id + "/0",
+                    url: '@Url.Action("OpenWindowForCreateOrEditIssue", "Home")',
+                    data: { 'projectId': projectId, 'issueId': 0 },
                     success: function (data) {
                         $('#dialogContent').html(data);
                         $('#issue').modal('show');

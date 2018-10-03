@@ -23,7 +23,8 @@
                 var projectId = $(this).val();
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("GetProjectIssuesForKanban")/' + projectId,
+                    url: '@Url.Action("GetProjectIssuesForKanban", "Home")',
+                    data: { 'projectId': projectId },
                     success: function (data) {
                         $('#projectsIssues>div').replaceWith(data);
                     }
