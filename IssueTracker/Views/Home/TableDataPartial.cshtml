@@ -8,8 +8,9 @@
                 <th class="col-lg-1">№</th>
                 <th class="col-lg-3">Summary</th>
                 <th class="col-lg-4">Description</th>
-                <th class="col-lg-2">Priority</th>
+                <th class="col-lg-1">Priority</th>
                 <th class="col-lg-2">Assignee</th>
+                <th class="col-lg-1"></th>
             </tr>
         </thead>
         <tbody>
@@ -21,9 +22,9 @@
                         <td class="col-lg-1">@item.Number</td>
                         <td class="col-lg-3">@item.Summary</td>
                         <td class="col-lg-4">@item.Description</td>
-                        <td class="col-lg-2">@item.Priority</td>
+                        <td class="col-lg-1">@item.Priority</td>
                         <td class="col-lg-2">@item.Assignee</td>
-                        <td> <button type="button" id="editButton" name="editButton" value="@item.Id" class="btn btn-default" data-toggle="modal" data-target="#issue">Edit</button></td>
+                        <td class="col-lg-1"> <button type="button" id="editButton" name="editButton" value="@item.Id" class="btn btn-default" data-toggle="modal" data-target="#issue">Edit</button></td>
                     </tr>
                 }
             }
@@ -33,10 +34,11 @@
         $(function () {
             $('button[name=editButton]').click(function () {
                 var projectId = $(this).val();
+                var issueId = 0;
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("OpenWindowForCreateOrEditIssue", "Home")',
-                    data: { 'projectId': projectId, 'issueId': 0 },
+                    data: { 'projectId': projectId, 'issueId': issueId },
                     success: function (data) {
                         $('#dialogContent').html(data);
                         $('#issue').modal('show');
