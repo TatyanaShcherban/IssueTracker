@@ -2,17 +2,17 @@
 
 <div class="modal-content">
     <div class="modal-header">
-        <button class="close" type="button" data-dismiss="modal">×</button>
-        <h4 class="modal-title">Edit issue</h4>
+        <button class="close" id="close" type="button" data-dismiss="modal">×</button>
+        <h4 id="header" class="modal-title"></h4>
     </div>
-    <form role="form" method="post" action="/Home/SaveIssue">
+    <form role="form" id="form" name="form">
         <input type="hidden" id="Id" name="Id" />
         <input type="hidden" id="ProjectId" name="ProjectId" />
         <div class="modal-body">
             <div class="form-group">
                 <div class="row">
                     <div class="col-lg-1">
-                        <button id="SaveButton" class="btn btn-primary" type="submit">Save</button>
+                        <button id="saveButton" class="btn btn-primary" type="submit">Save</button>
                     </div>
                     <div class="col-lg-3">
                         <select class="form-control" id="LifeCycle" name="State">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="forError">
                 <div class="row">
                     <div class="col-lg-9">
                         <label for="NumberIssue">Project Name:</label>
@@ -36,17 +36,17 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="forError">
                 <label for="SummaryIssue">Summary:</label>
                 <input type="text" class="form-control" id="Summary" name="Summary">
             </div>
-            <div class="form-group">
+            <div class="form-group" id="forError">
                 <label for="DescriptionIssue">Description:</label>
-                <textarea class="form-control" id="Description" name="Description" rows="5"></textarea>
+                <textarea class="form-control" type="text" id="Description" name="Description" rows="5"></textarea>
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" id="forError">
                         <label for="AssigneeIssue">Assignee:</label>
                         <input type="text" class="form-control" id="Assignee" name="Assignee">
                     </div>
@@ -69,7 +69,7 @@
 @if (Model.Item2 == null)
 {
     <script>
-        function loadPage() {
+        function LoadPage() {
             document.getElementById('ProjectName').value = "@Model.Item1.Project.Name"
             document.getElementById('Number').value = "@Model.Item1.Number";
             document.getElementById("LifeCycle").value = "@Model.Item1.LifeCycle.State";
@@ -79,6 +79,7 @@
             document.getElementById("Priority").value = "@Model.Item1.Priority";
             document.getElementById("Id").value = "@Model.Item1.Id";
             document.getElementById("ProjectId").value = "@Model.Item1.Project.Id";
+            document.getElementById("header").innerText = "Edit issue";
             return;
 
         }
@@ -87,18 +88,85 @@
 else
 {
     <script>
-        function loadPage() {
+        function LoadPage() {
             document.getElementById("LifeCycle").disabled = true;
             document.getElementById('ProjectName').readOnly = true;
             document.getElementById('Number').readOnly = true;
             document.getElementById('ProjectName').value = "@Model.Item2.Name";
             document.getElementById("Number").value = "00000" + (@Model.Item2.Issues.Count +1);
             document.getElementById("ProjectId").value = "@Model.Item2.Id";
+            document.getElementById("header").innerText = "New issue";
             return;
         }
     </script>
 }
 
 <script>
-    loadPage()
+    function FieldsValidate() {
+        $('#form').each(function () {
+            var form = $(this);
+            form.find(':text, textarea').each(function () {
+                if ($(this).val() == '') {
+                    $(this).parent().addClass('has-error');
+                }
+                else {
+                    $(this).parent().removeClass('has-error');
+                }
+            });
+        })
+        if ($("#form div").hasClass("has-error"))
+            return false;
+        else
+            return true;
+    }
+
+    $(function () {
+        LoadPage();
+        $('#saveButton').click(function (e) {
+            if (FieldsValidate() == false) {
+                alert("There are empty fields!")
+                return false;
+            }
+            else {
+                var pID = $('#ProjectId').val();
+                var formData = new FormData(document.forms.form);
+                $.ajax({
+                    async: false,
+                    type: 'POST',
+                    url: '@Url.Action("SaveIssue", "Home")',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (data == "exist") {
+                            alert("The issue with such summary has already existed");
+                            e.preventDefault();
+                            $("#Summary").parent().addClass("has-warning");
+                        }
+                        else {
+                            if (data == "created") {
+                                alert("The issue was successfully saved");
+                            }
+                            else if (data == "edited") {
+                                alert("The issue was successfully edited");
+                            }
+                            $('#close').trigger('click');
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("GetProjectIssues", "Home")',
+                                data: { 'projectId': pID },
+                                success: function (data) {
+                                    $('#partialDivForAjax>div').replaceWith(data);
+                                }
+                            })
+                        }
+                    },
+                    error: function (xhr, httpStatusMessage, customErrorMessage) {
+                        alert(xhr.error);
+                    }
+                });
+                return false;
+            }
+        });
+    })
 </script>
