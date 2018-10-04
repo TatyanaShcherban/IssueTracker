@@ -27,6 +27,9 @@
                     data: { 'projectId': projectId },
                     success: function (data) {
                         $('#projectsIssues>div').replaceWith(data);
+                    },
+                    error: function (xhr, httpStatusMessage, customErrorMessage) {
+                        alert(customErrorMessage);
                     }
                 });
                 var firstChild = $(this).children().eq(0);

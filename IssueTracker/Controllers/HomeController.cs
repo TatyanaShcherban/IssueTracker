@@ -18,8 +18,15 @@ namespace IssueTracker.Controllers
         public ActionResult Index()
         {
             SelectList allProjects = new SelectList(dataBaseObject.Projects, "id", "Name");
-            ViewBag.Projects = allProjects;
-            return View();
+            if (allProjects != null)
+            {
+                ViewBag.Projects = allProjects;
+                return View();
+            }
+            else
+            {
+                return new HttpStatusCodeResult(500, "The database is empty");
+            }
         }
 
         [HttpPost]
@@ -27,9 +34,13 @@ namespace IssueTracker.Controllers
         {
             List<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectId == projectId).ToList();
             if (allIssues != null)
+            {
                 return PartialView("~/Views/Home/TableDataPartial.cshtml", allIssues);
+            }
             else
-                return HttpNotFound();
+            {
+                return new HttpStatusCodeResult(500, "The project not found");
+            }
         }
 
         [HttpPost]
@@ -50,27 +61,36 @@ namespace IssueTracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveIssue(Issue issue, LifeCycle lifeCycle)
+        public string SaveIssue(Issue issue, LifeCycle lifeCycle)
         {
             try
             {
-                if (issue.Id == emptyReceivedParameter)
+                if (dataBaseObject.Issues.Any(item => item.Summary.Contains(issue.Summary) && item.ProjectId == issue.ProjectId))
                 {
-                    issue.LifeCycleId = idOfNewСolumninLifeCyclesTable;
-                    dataBaseObject.Issues.Add(issue);
+                    return "exist";
                 }
                 else
                 {
-                    issue.LifeCycleId = (from table in dataBaseObject.LifeCycles
-                                         where table.State == lifeCycle.State
-                                         select table.Id).Single();
-                    Issue editedIssue = new Issue();
-                    editedIssue = issue;
-                    dataBaseObject.Entry(editedIssue).State = EntityState.Modified;
+                    if (issue.Id == emptyReceivedParameter)
+                    {
 
+                        issue.LifeCycleId = idOfNewСolumninLifeCyclesTable;
+                        dataBaseObject.Issues.Add(issue);
+                        dataBaseObject.SaveChanges();
+                        return "created";
+                    }
+                    else
+                    {
+                        issue.LifeCycleId = (from table in dataBaseObject.LifeCycles
+                                             where table.State == lifeCycle.State
+                                             select table.Id).Single();
+                        Issue editedIssue = new Issue();
+                        editedIssue = issue;
+                        dataBaseObject.Entry(editedIssue).State = EntityState.Modified;
+                        dataBaseObject.SaveChanges();
+                        return "edited";
+                    }
                 }
-                dataBaseObject.SaveChanges();
-                return RedirectToAction("Index");
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateException exception)
             {
@@ -82,8 +102,15 @@ namespace IssueTracker.Controllers
         public ActionResult Kanban()
         {
             SelectList allProjects = new SelectList(dataBaseObject.Projects, "id", "Name");
-            ViewBag.Projects = allProjects;
-            return View();
+            if (allProjects != null)
+            {
+                ViewBag.Projects = allProjects;
+                return View();
+            }
+            else
+            {
+                return new HttpStatusCodeResult(500, "The database is empty");
+            }
         }
 
         [HttpPost]
@@ -91,9 +118,13 @@ namespace IssueTracker.Controllers
         {
             List<Issue> allIssues = dataBaseObject.Issues.Where(item => item.ProjectId == projectId).ToList();
             if (allIssues != null)
+            {
                 return PartialView("~/Views/Home/ProjectIssuesForKanban.cshtml", allIssues);
+            }
             else
-                return HttpNotFound();
+            {
+                return new HttpStatusCodeResult(500, "The project not found");
+            }
         }
 
         [HttpPost]

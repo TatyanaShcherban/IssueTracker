@@ -44,6 +44,9 @@
                     success: function (data) {
                         $('#partialDivForAjax>div').replaceWith(data);
                         $('#createButton').css('visibility', 'visible');
+                    },
+                    error: function (xhr, httpStatusMessage, customErrorMessage) {
+                        alert(customErrorMessage);
                     }
                 });
                 var firstChild = $(this).children().eq(0);
@@ -54,13 +57,17 @@
 
             $('#createButton').click(function () {
                 var issueId = $("#projectidForAjax").val();
+                var projectId = 0;
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("OpenWindowForCreateOrEditIssue", "Home")',
-                    data: { 'projectId': 0, 'issueId': issueId },
+                    data: { 'projectId': projectId, 'issueId': issueId },
                     success: function (data) {
                         $('#dialogContent').html(data);
                         $('#issue').modal('show');
+                    },
+                    error: function (xhr, httpStatusMessage, customErrorMessage) {
+                        alert(customErrorMessage);
                     }
                 });
             });
