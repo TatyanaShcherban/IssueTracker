@@ -131,7 +131,6 @@ else
                 var pID = $('#ProjectId').val();
                 var formData = new FormData(document.forms.form);
                 $.ajax({
-                    async: false,
                     type: 'POST',
                     url: '@Url.Action("SaveIssue", "Home")',
                     data: formData,
