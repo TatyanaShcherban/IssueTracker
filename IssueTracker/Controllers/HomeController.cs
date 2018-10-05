@@ -65,31 +65,30 @@ namespace IssueTracker.Controllers
         {
             try
             {
-                if (dataBaseObject.Issues.Any(item => item.Summary.Contains(issue.Summary) && item.ProjectId == issue.ProjectId))
+                if (issue.Id == emptyReceivedParameter)
                 {
-                    return "exist";
-                }
-                else
-                {
-                    if (issue.Id == emptyReceivedParameter)
+                    if (dataBaseObject.Issues.Any(item => item.Summary.Contains(issue.Summary) && item.ProjectId == issue.ProjectId))
                     {
-
+                        return "exist";
+                    }
+                    else
+                    {
                         issue.LifeCycleId = idOfNewСolumninLifeCyclesTable;
                         dataBaseObject.Issues.Add(issue);
                         dataBaseObject.SaveChanges();
                         return "created";
                     }
-                    else
-                    {
-                        issue.LifeCycleId = (from table in dataBaseObject.LifeCycles
-                                             where table.State == lifeCycle.State
-                                             select table.Id).Single();
-                        Issue editedIssue = new Issue();
-                        editedIssue = issue;
-                        dataBaseObject.Entry(editedIssue).State = EntityState.Modified;
-                        dataBaseObject.SaveChanges();
-                        return "edited";
-                    }
+                }
+                else
+                {
+                    issue.LifeCycleId = (from table in dataBaseObject.LifeCycles
+                                         where table.State == lifeCycle.State
+                                         select table.Id).Single();
+                    Issue editedIssue = new Issue();
+                    editedIssue = issue;
+                    dataBaseObject.Entry(editedIssue).State = EntityState.Modified;
+                    dataBaseObject.SaveChanges();
+                    return "edited";
                 }
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateException exception)
